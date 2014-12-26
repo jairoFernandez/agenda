@@ -42,7 +42,13 @@ function onDeviceReady(){
 	}
 	
 	
-	
+	$("#b_guardar").click(function(e){
+		if($.id != -1){
+		 	saveEditForm();
+		 }else{
+			saveNewForm();
+		 }
+	 });
 }
 
 
@@ -115,7 +121,7 @@ function cargaDatosSuccess(tx, results){
 		if(foto == ""){
 			foto = "assets/no_foto.png";
 		}
-		selector.append('<li><a href="#detalle" data-uid='+persona.id+' class="linkDetalles"><div class="interior_lista"><img src="'+ foto +'" class="img_peq"/><span>' + persona.nombre + ' ' + persona.apellidos+ '</span></div></a><a href="#form"  data-theme="a" data-uid='+persona.id+'  class="linkForm">Predet.</a></li>').listview('refresh');
+		selector.append('<li id="li_'+persona.id+'"><a href="#detalle" data-uid='+persona.id+' class="linkDetalles"><div class="interior_lista"><img src="'+ foto +'" class="img_peq"/><span>' + persona.nombre + ' ' + persona.apellidos+ '</span></div></a><a href="#form"  data-theme="a" data-uid='+persona.id+'  class="linkForm">Predet.</a></li>').listview('refresh');
 	}
 	
 	$(".linkDetalles").click(function(e){
@@ -177,15 +183,118 @@ function queryDetalleSuccess(tx, results) {
 $(document).on('pagebeforeshow', '#form', function(){ 
 	mkLog('ID recuperado en vista form: ' + $.id);
 	
-	
+	initForm();
+	if(db != null && $.id != -1){
+		db.transaction(queryDBFindByIDForm, errorDB);
+	}
 });
 
+function queryDBFindByIDForm(tx) {
+    tx.executeSql('SELECT * FROM agenda_curso WHERE id='+$.id, [], queryFormSuccess, errorDB);
+}
 
-
+function queryFormSuccess(tx, results) {
+	mkLog("Recibidos de la DB en vista Form" + results.rows.length + " registros");
+	if(results.rows.length == 0){
+		mkLog("No se han recibido registros para la vista form");
+		navigator.notification.alert("No hay detalles para ese elemento");
+	}
+	
+	$.registro = results.rows.item(0);
+	
+		$.imageURL = $.registro.foto;
+		if($.imageURL == ""){
+			$.imageURL = "assets/no_foto.png";
+		}
+		$("#fotoEdit_img").attr("src", $.imageURL);
+		$("#ti_nombre").val($.registro.nombre);
+		$("#ti_apellidos").val($.registro.apellidos);
+		$("#ti_telefono").val($.registro.telefono);
+		$("#ti_mail").val($.registro.email);
+		
+		$("#cat_"+$.registro.categoria).trigger("click").trigger("click");	//$("#cat_"+$.registro.categoria).attr("checked",true).checkboxradio("refresh");
+}
 $(document).on('pagebeforeshow', '#home', function(){ 
 	$.id = -1;
 });
+function initForm(){
+	$.imageURL = "assets/no_foto.png";
+	
+	$("#fotoEdit_img").attr("src", $.imageURL);
+	$("#ti_nombre").val("");
+	$("#ti_apellidos").val("");
+	$("#ti_telefono").val("");
+	$("#ti_mail").val("");
+		
+	$("#cat_familia").trigger("click").trigger("click")
+}
 
 
 
 
+/*
+* modificando registros
+*/
+function saveEditForm(){
+	if(db != null){
+		db.transaction(queryDBUpdateForm, errorDB, updateFormSuccess);
+	}
+}
+
+function queryDBUpdateForm(tx){
+	var cat = $("#cajaCategorias").find("input:checked").val();
+	tx.executeSql('UPDATE agenda_curso SET nombre="'+$("#ti_nombre").val()+'", apellidos="'+$("#ti_apellidos").val()+'",telefono="'+$("#ti_telefono").val()+'",email="'+$("#ti_mail").val()+'",categoria="'+cat+'",foto = "'+$.imageURL+'" WHERE id='+$.id);
+}
+function updateFormSuccess(tx) {
+	var selector = $("#li_"+$.id);
+	
+	var selector = $("#li_"+$.id).clone(true);
+	selector.find("img").attr("src", $.imageURL);
+	selector.find("a:first").find("span").html($("#ti_nombre").val() + " " + $("#ti_apellidos").val());
+	
+	
+	$("#li_"+$.id).remove();
+	
+	var cat = $("#cajaCategorias").find("input:checked").val();
+	var lista = $("#lista_" + cat + " ul")
+	lista.append(selector).listview('refresh');
+	
+	
+	$.mobile.changePage("#home");
+}
+
+
+
+
+/*
+* creando registros
+*/
+function saveNewForm(){
+	if(db != null){
+		db.transaction(queryDBInsertForm, errorDB);
+	}
+}
+
+function queryDBInsertForm(tx){
+	var cat = $("#cajaCategorias").find("input:checked").val();
+	
+	tx.executeSql("INSERT INTO agenda_curso (nombre,apellidos,telefono,categoria,foto,email) VALUES ('"+$("#ti_nombre").val()+"','"+$("#ti_apellidos").val()+"','"+$("#ti_telefono").val()+"','"+cat+"','"+$.imageURL+"','"+$("#ti_mail").val()+"')", [], newFormSuccess, errorDB);
+}
+function newFormSuccess(tx, results) {
+	var cat = $("#cajaCategorias").find("input:checked").val();
+	var lista = $("#lista_" + cat + " ul")
+	
+	
+	var obj = $('<li id="li_'+results.insertId+'"><a href="#detalle" data-uid='+results.insertId+' class="linkDetalles"><div class="interior_lista"><img src="'+ $.imageUR +'" class="img_peq"/><span>' + $("#ti_nombre").val() + " " + $("#ti_apellidos").val()+ '</span></div></a><a href="#form"  data-theme="a" data-uid='+results.insertId+'  class="linkForm">Predet.</a></li>');
+	obj.find('.linkDetalles').bind('click', function(e){
+		$.id = $(this).data('uid');
+	});
+	
+	obj.find('.linkForm').bind('click', function(e){
+		$.id = $(this).data('uid');
+	});
+	lista.append(obj).listview('refresh');
+	
+	
+	$.mobile.changePage("#home");
+}
