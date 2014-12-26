@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+	xmlns:gap = "http://phonegap.com/ns/1.0"
+	id        = "com.phonegap.tucompua.agenda"
+	version   = "1.0.0">
+
+<name>Agenda</name>	
+<description>
+	Agenda ministerial
+</description>
+
+<author href="http://tucompualdia.com" email="jairofdezvega@gmail.com">
+Jairo Fdez
+</author>
+
+<gap:plugin name="org.apache.cordova.dialogs" />
+
+<preference name="phonegap-version" value="3.3.0" />
+</widget>

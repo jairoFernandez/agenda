@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	<title>jQuery Mobile Demos</title>
+	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+	<!-- <link rel="stylesheet"  href="jquery.mobile-1.3.0/demos/css/themes/default/jquery.mobile-1.3.0.css"> -->
+	<link rel="stylesheet" type="text/css" href="jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.css">
+	<!--<link rel="shortcut icon" href="jquery.mobile-1.3.0/demos/docs/favicon.ico">-->
+    
+	<script src="jquery.mobile-1.3.0/jquery.js"></script>
+	
+	<script src="jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+<body onload="onBodyLoad()">
+		
+<!--Inicio -->
+		<div data-role="page" id="home">
+			<div data-role="header"><h1>Mi agenda</h1>
+			<div class="ui-btn-left">
+					<a href="#form" data-role="button" data-icon="plus" data-inline="true" data-iconpos="notext">Añadir</a>
+			</div>
+			<div class="ui-btn-right">
+
+					<a href="#contactos" data-role="button" data-icon="grid" data-inline="true" data-iconpos="notext">Buscar</a>
+					<a href="#ayuda" data-role="button" data-icon="help" data-inline="true" data-iconpos="notext"> Ayuda</a>	
+			</div>
+			</div>
+			<div date-role="content">
+				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+				    <h4>Familia</h4>
+				    <ul data-role="listview">
+				       <li><a href="#detalle"><div class="interior_lista"><img src="icon.jpg" class="img_peq" /><span>Mathias Fdez</span></div></a></li>
+				        <li><a href="#"><div class="interior_lista"><img src="icon.jpg" class="img_peq" /><span>Nata Fdez</span></div></a></li>
+				        <li><a href="#"><div class="interior_lista"><img src="icon.jpg" class="img_peq" /><span>Jairo Fdez</span></div></a></li>
+				    </ul>
+				</div>
+				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+				    <h4>Trabajo</h4>
+				    <ul data-role="listview">
+				        <li><a href="#">List item 1</a></li>
+				        <li><a href="#">List item 2</a></li>
+				        <li><a href="#">List item 3</a></li>
+				    </ul>
+				</div>
+				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+				    <h4>Amigos</h4>
+				    <ul data-role="listview">
+				        <li><a href="#">List item 1</a></li>
+				        <li><a href="#">List item 2</a></li>
+				        <li><a href="#">List item 3</a></li>
+				    </ul>
+				</div>
+			</div>
+		</div>
+<!--Detalle de un contacto -->		
+		<div data-role="page" id="detalle">
+			<div data-role="header"><h1>Detalle Contacto</h1>
+			<div class="ui-btn-left">
+					<a href="#" data-role="button" data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back">Volver</a>
+			</div>
+			</div>
+			<div date-role="content">
+				<div class="caja_blanca">
+					<p>Familia</p>
+					<div id="foto"><img src="icon.jpg"/></div>
+				</div>
+				<div class="caja_blanca">
+					<h3>Mathias Fdez</h3>
+					311 7858 343 <a href="#" data-role="button" data-inline="true" data-iconpos="notext" data-rel="back" data-icon="phone">Volver</a><br>
+					mathi@hotmail.com <a href="#" data-role="button" data-inline="true" data-iconpos="notext" data-rel="back" data-icon="email">Volver</a>
+				</div>
+
+			</div>
+		</div>
+<!--Edicion de un contacto -->
+		<div data-role="page" id="form">
+			<div data-role="header"><h1>Formulario</h1>
+			<div class="ui-btn-left">
+					<a href="#" data-role="button" data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back">Volver</a>
+			</div>
+			
+			</div>
+ 			<div date-role="content">
+ 				<div class="caja_blanca">
+					
+					<div id="fotoEdit"><a href="#"><img src="icon.jpg"/></a></div>
+				</div>
+						<div data-role="fieldcontain">
+								<input type="text" name="ti_nombre" id="ti_nombre" value="" placeholder="nombre">
+						</div>
+						<div data-role="fieldcontain">
+								<input type="text" name="ti_apellidos" id="ti_apellidos" value="" placeholder="apellidos">
+						</div>
+						<div data-role="fieldcontain">
+								<input type="text" name="ti_telefono" id="ti_telefono" value="" placeholder="telefono">
+						</div>
+						<div data-role="fieldcontain">
+								<input type="text" name="ti_mail" id="ti_mail" value="" placeholder="email">
+						</div>
+						<div data-role="fieldcontain" id ="cajaCategorias">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+								
+								<input type="radio" name="categoriaSel" id="cat_familia" value="Famili">
+								<label for="cat_familia">Familia</label>
+								<input type="radio" name="categoriaSel" id="cat_trabajo" value="Trabajo">
+								<label for="cat_trabajo">Trabajo</label>
+								<input type="radio" name="categoriaSel" id="cat_amigo" value="Amigo">
+								<label for="cat_amigo">Amigos</label>
+							</fieldset>
+								
+						</div>
+
+						<input type="button" value="Guardar" data-icon="save" data-theme="b" id="b_guardar">
+ 			</div>
+		</div>
+<!--Pagina de email -->
+		<div data-role="page" id="mail_page">
+			<div data-role="header"><h1>Enviar email</h1>
+			<div class="ui-btn-left">
+					<a href="#" data-role="button" data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back">Volver</a>
+			</div>
+			
+
+
+			</div>
+			<div date-role="content">
+				
+				<div data-role="fieldcontain">
+								<input type="text" name="ti_asunto" id="ti_asunto" value="" placeholder="Asunto...">
+						</div>
+						<div data-role="fieldcontain">
+								<textarea cols="40" rows="8" name="ta_body" id="ta_body" placeholder="este es el cuerpo del mensaje..."></textarea> 
+						</div>
+						<input type="button" value="Enviar" data-icon="save" data-theme="b" id="b_enviar">
+			</div>
+		</div>
+<!--Buscar -->
+		<div data-role="page" id="contactos">
+			<div data-role="header"><h1>Buscar</h1>
+			<div class="ui-btn-left">
+					<a href="#" data-role="button" data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back">Volver</a>
+			</div>
+			
+			</div>
+			<div date-role="content">
+				
+				<div data-role="fieldcontain">
+								<input type="text" name="ti_search" id="ti_search" value="" placeholder="Buscar...">
+
+				</div>
+				<input type="button" value="Buscar" data-icon="save" data-theme="b" id="b_buscar">
+				<div id="contenedor_lista">
+				<ul data-role="listview">
+				    <li><a href="#">Acura</a></li>
+				    <li><a href="#">Audi</a></li>
+				    <li><a href="#">BMW</a></li>
+				    <li><a href="#">Cadillac</a></li>
+				    <li><a href="#">Ferrari</a></li>
+				</ul>
+				</div>
+
+			</div>
+		</div>	
+<!--Ayuda -->
+		<div data-role="page" id="ayuda">
+			<div data-role="header"><h1>Ayuda</h1>
+			<div class="ui-btn-left">
+					<a href="#" data-role="button" data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back">Volver</a>
+			</div>
+			
+			</div>
+			<div date-role="content">
+				<ul id="listaAyuda">
+					<li>Usar + para añadir contactos</li>
+					<li>Usar las categorías para guardar tus contactos</li>
+					<li>Haz clic en el teléfono para llamar</li>
+				</ul>
+
+			</div>
+		</div>	
+</body>
+</html>

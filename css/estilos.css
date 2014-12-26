@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.img_peq{
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.ui-btn .a_contactos{
+	text-align: left;
+	margin: 8px;
+}
+
+.caja_blanca{
+	background-color: #FFFFFF;
+	border-radius: 10px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-bottom: 6px;
+	padding-top: 1px;
+	margin-bottom: 10px;
+}
+
+#foto, #fotoEdit{
+	text-align: center;
+}
+
+#foto img{
+	max-height: 80px;
+}
+
+#fotoEdit img{
+	max-height: 50px;
+}
+
+#cajaCategorias {
+	text-align: center;
+}
+
+#cajaCategorias div {
+	display: inline-block;
+}
+
+#ta_body{
+	min-height: 200px;
+}
+
+#contenedor_lista{
+	margin-top: 40px;
+}
+
+#listaAyuda{
+	line-height: 1.6em;
+}
