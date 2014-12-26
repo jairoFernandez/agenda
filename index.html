@@ -15,13 +15,14 @@
 	<script src="jquery.mobile-1.3.0/jquery.js"></script>
 	
 	<script src="jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.js"></script>
+	<script src="phonegap.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body onload="onBodyLoad()">
 		
 <!--Inicio -->
 		<div data-role="page" id="home">
-			<div data-role="header"><h1>Mi agenda</h1>
+			<div data-role="header"><h1>Mi Agenda</h1>
 			<div class="ui-btn-left">
 					<a href="#form" data-role="button" data-icon="plus" data-inline="true" data-iconpos="notext">Añadir</a>
 			</div>
@@ -32,29 +33,17 @@
 			</div>
 			</div>
 			<div date-role="content">
-				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" id="lista_familia">
 				    <h4>Familia</h4>
-				    <ul data-role="listview">
-				       <li><a href="#detalle"><div class="interior_lista"><img src="icon.jpg" class="img_peq" /><span>Mathias Fdez</span></div></a></li>
-				        <li><a href="#"><div class="interior_lista"><img src="icon.jpg" class="img_peq" /><span>Nata Fdez</span></div></a></li>
-				        <li><a href="#"><div class="interior_lista"><img src="icon.jpg" class="img_peq" /><span>Jairo Fdez</span></div></a></li>
-				    </ul>
+				    <ul data-role="listview" data-inset="true" data-split-icon="edit"></ul>
 				</div>
-				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" id="lista_trabajo">
 				    <h4>Trabajo</h4>
-				    <ul data-role="listview">
-				        <li><a href="#">List item 1</a></li>
-				        <li><a href="#">List item 2</a></li>
-				        <li><a href="#">List item 3</a></li>
-				    </ul>
+				    <ul data-role="listview" data-inset="true" data-split-icon="edit"></ul>
 				</div>
-				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" id="lista_amigo">
 				    <h4>Amigos</h4>
-				    <ul data-role="listview">
-				        <li><a href="#">List item 1</a></li>
-				        <li><a href="#">List item 2</a></li>
-				        <li><a href="#">List item 3</a></li>
-				    </ul>
+				    <ul data-role="listview" data-inset="true" data-split-icon="edit"></ul>
 				</div>
 			</div>
 		</div>
