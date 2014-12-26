@@ -79,7 +79,7 @@
       	<div class="caja_blanca">
         <h3 id="nombre">Jorge G. V.</h3>
          <div ><span id="num_tel">45645674567</span> <a href="#" data-role="button" data-inline="true" data-icon="phone" data-iconpos="notext" id="telefono">Llamar</a></div>
-        <div id="email"><span id="label_mail">email@dom.es</span> <a href="#" data-role="button" data-inline="true" data-icon="mail" data-iconpos="notext">Llamar</a></div>
+        <div id="email"><span id="label_mail">email@dom.es</span> <a href="#mail_page" data-role="button" data-inline="true" data-icon="mail" data-iconpos="notext">Llamar</a></div>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
       </div>
        <div data-role="content">
            <div class="caja_blanca">
-        		<div id="fotoEdit"><a href="#"><img id="fotoEdit_img" src="assets/no_foto.png"/></a>
+        		<div id="fotoEdit"><a href="#camaraMenu" data-transition="pop" data-rel="popup" ><img id="fotoEdit_img" src="assets/no_foto.png"/></a>
             </div>
         </div>
            <div data-role="fieldcontain">
@@ -129,6 +129,20 @@
         </div>
         <button id="b_guardar">Guardar</button>
         
+        
+        
+         
+        <div data-role="popup" id="camaraMenu" data-theme="b">
+        <a href="#" data-role="button" data-rel="back" data-inline="true" data-icon="delete" data-iconpos="notext" data-rel="back" class="ui-btn-right">Volver</a>
+        	<h3>La foto de...</h3>
+        	<div data-role="controlgroup" data-type="vertical">
+              <button id="btnGetCamara" >Cámara</button>
+              <button id="btnGetLibrary" >Librería</button>
+            </div>
+        </div>
+      </div>
+      
+      
        </div>
     </div>
     
@@ -148,15 +162,16 @@
         <div data-role="fieldcontain">
           <input type="text" name="ti_search" id="ti_search" value="" placeholder="nombre..." />
         </div>
-        <button id="b_buscar">Buscar</button>
-        
-        <div id="contenedor_lista" data-theme="b">
-            <ul data-role="listview">
-              <li><a href="#">Página</a></li>
-              <li><a href="#">Página</a></li>
-            </ul>
-      	</div>
-        
+        <div data-role="fieldcontain">
+        	<button id="btn_buscar">Buscar</button>
+         </div>
+         
+         
+            <div id="listaContactos" data-theme="b">
+            	<ul data-role="listview" data-inset="true" data-split-icon="edit" >
+                </ul>
+                
+            </div>
       </div>
     </div>
     
@@ -180,7 +195,7 @@
         <div data-role="fieldcontain">
           <textarea cols="40" rows="8" name="ta_body" id="ta_body" placeholder="este es el cuerpo del mensaje..."></textarea>
         </div>
-        <button id="b_enviar">Enviar</button>
+        <button id="btn_enviar_mail">Enviar</button>
       </div>
     </div>
     

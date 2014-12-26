@@ -49,6 +49,38 @@ function onDeviceReady(){
 			saveNewForm();
 		 }
 	 });
+	 
+	 
+	  $("#btn_buscar").click(function(e){
+		findContact();
+	 });
+	 
+	 //preparamos los elementos activos de la app
+	  $("#btnGetCamara").click(function(e){
+		e.stopPropagation();
+			navigator.camera.getPicture( cameraSuccess, cameraError, { quality : 50,
+														destinationType : Camera.DestinationType.FILE_URI,
+														sourceType : Camera.PictureSourceType.CAMERA,
+														allowEdit : true,
+														encodingType: Camera.EncodingType.JPEG,
+																	  saveToPhotoAlbum: true 
+		} );
+	});
+	
+	$("#btnGetLibrary").click(function(e){
+		e.stopPropagation();
+			navigator.camera.getPicture( cameraSuccess, cameraError, { quality : 50,
+														destinationType : Camera.DestinationType.FILE_URI,
+														sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+														allowEdit : true,
+														encodingType: Camera.EncodingType.JPEG,
+														saveToPhotoAlbum: true 
+		} );
+	});
+	
+	$("#btn_enviar_mail").click(function(e){
+		sendMail();
+	 });
 }
 
 
@@ -186,9 +218,17 @@ $(document).on('pagebeforeshow', '#form', function(){
 	initForm();
 	if(db != null && $.id != -1){
 		db.transaction(queryDBFindByIDForm, errorDB);
+	}else if($.idContact != -1 && $.id == -1){
+		$.registro = $.contacts[$.idContact];
+		$("#ti_nombre").val($.contacts[$.idContact].nombre);
+		 $("#ti_telefono").val($.contacts[$.idContact].telefono);
+		$("#ti_mail").val($.contacts[$.idContact].email);
+		$.idContact = -1;
 	}
 });
-
+	
+	
+	
 function queryDBFindByIDForm(tx) {
     tx.executeSql('SELECT * FROM agenda_curso WHERE id='+$.id, [], queryFormSuccess, errorDB);
 }
@@ -298,3 +338,84 @@ function newFormSuccess(tx, results) {
 	
 	$.mobile.changePage("#home");
 }
+
+
+
+
+
+/*
+* buscando contactos
+*/
+function findContact(){
+	var opciones = new ContactFindOptions();
+	opciones.filter = $("#ti_search").val();
+	var fields = ["name", "displayName", "emails", "phoneNumbers"];
+	navigator.contacts.find(fields, contactSuccess, contactError, opciones);
+}
+
+function contactSuccess(contacts) {
+	var lista = $("#listaContactos ul");
+	$.contacts = [];
+	lista.html("");
+     for (var i = 0; i < contacts.length; i++) {
+		var contacto = {};
+		contacto.nombre = contacts[i].name.familyName;
+		 if (contacts[i].phoneNumbers && (contacts[i].phoneNumbers.length > 0)) {
+			 contacto.telefono = contacts[i].phoneNumbers[0].value;
+		 }
+		 if (contacts[i].emails && (contacts[i].emails.length > 0)) {
+			 contacto.email = contacts[i].emails[0].value;
+		 }
+		$.contacts.push(contacto);
+		
+		
+		lista.append($("<li ><a href='#form' class='importContact' data-uid='"+i+"'>"+contacts[i].name.formatted+"</a></li>"))
+     }
+	 
+	 lista.listview('refresh');
+	 
+	$('.importContact').bind('click', function(e){
+		$.id = -1;
+		$.idContact = $(this).data('uid');
+	});
+	
+}
+
+function contactError(){
+	navigator.notification.alert("Error buscando contactos");
+}
+
+
+
+
+	  
+	  
+
+
+
+/*
+* programación relacionada con la cámara
+*/
+
+function cameraSuccess(imageURL) {
+	$("#fotoEdit_img").attr("src", imageURL);
+	$.imageURL = imageURL;
+	$("#li_"+$.id).find("img").attr("src", $.imageURL);
+	$( "#camaraMenu" ).popup( "close" );
+}
+function cameraError(msg) {
+    navigator.notification.alert("Error capturando foto: " + msg);
+}
+
+
+
+/*
+*enviando mails
+*/
+function sendMail(){
+	var subject = $("#ti_asunto").val();
+	var body = $("#ta_mensaje").val();
+	window.location.href = "mailto:"+$.registro.email+"?subject="+subject+"&body="+body;
+	/*window.plugins.emailComposer.showEmailComposerWithCallback(mailSended,subject,body,[$.registro.email],[],[],false,[],[]);*/
+}
+
